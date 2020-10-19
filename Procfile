@@ -1,1 +1,1 @@
-web: uwsgi uwsgi.ini --log-file -
+web: uwsgi uwsgi.ini
