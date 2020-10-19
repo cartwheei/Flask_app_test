@@ -26,10 +26,9 @@ class ItemModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()  # SELECT * FROM ITEMS WHERE name = name ile aynı işi yapıyor , id 1 yaprak ilk sonucu al dediks
+        return cls.query.filter_by(
+            name=name).first()  # SELECT * FROM ITEMS WHERE name = name ile aynı işi yapıyor , id 1 yaprak ilk sonucu al dediks
 
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
-
-
