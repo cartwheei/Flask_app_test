@@ -1,6 +1,7 @@
 import sqlite3
 from flask_restful import Resource, reqparse
 from models.user import UserModel
+from db import db
 
 
 class UserRegister(Resource):
@@ -24,3 +25,19 @@ class UserRegister(Resource):
         new_user.save_to_db()
 
         return {'message': 'user created succesfully'}, 201
+
+
+class User(Resource):
+    @classmethod
+    def get(cls, name):
+        user = UserModel.find_by_username(name)
+        if user:
+            return user.json()
+        return {'message': 'user not found'}, 404
+
+    def delete(self, name):
+        user = UserModel.find_by_username(name)
+        if user:
+            user.delete_from_db()
+            return {'message': 'user deleted'}, 200
+        return {'message': 'user not found'}, 404

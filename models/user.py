@@ -9,8 +9,7 @@ class UserModel(db.Model):
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
 
-    def __init__(self,  username, password):
-
+    def __init__(self, username, password):
         self.username = username
         self.password = password
 
@@ -18,12 +17,19 @@ class UserModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def json(self):
+        return {'id': self.id, 'name': self.username}
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @classmethod
     def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()  # SELECT * FROM ITEMS WHERE name = name ile aynı işi yapıyor , id 1 yaprak ilk sonucu al dediks
+        return cls.query.filter_by(
+            username=username).first()  # SELECT * FROM ITEMS WHERE name = name ile aynı işi yapıyor , id 1 yaprak ilk sonucu al dediks
 
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(
             id=_id).first()  # SELECT * FROM ITEMS WHERE name = name ile aynı işi yapıyor , id 1 yaprak ilk sonucu al dediks
-
