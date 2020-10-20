@@ -15,10 +15,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'alper'
 api = Api(app)
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
 
 jwt = JWT(app, authenticate, identity)  # /auth olarak yeni endpoint yaratır
 
